@@ -4,9 +4,7 @@ const { todoSchema, updateTodo } = require("./types.js")
 const { todos }  = require("./db.js") 
 
 const app = express()
-app.use(cors({
-    origin:"http://localhost:5173/"
-}))
+app.use(cors())
 app.use(express.json())
 
 app.post("/todo",async (req,res) => {
