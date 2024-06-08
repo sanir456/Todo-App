@@ -1,14 +1,13 @@
 const mongoose = require("mongoose")
+
 mongoose.connect("mongodb+srv://root:1234567890@test.tzv3isg.mongodb.net/")
 
-const todoSchema = mongoose.Schema({
+const todoSchema = new mongoose.Schema({
     title:String,
     desc:String,
     completed:Boolean
 })
 
-const todo = mongoose.model("todos",todoSchema)
+const todos = mongoose.model('todos',todoSchema)
 
-module.exports = {
-    todo
-}
+module.exports = {todos}

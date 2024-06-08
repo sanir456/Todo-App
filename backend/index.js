@@ -1,24 +1,24 @@
-import { todoSchema, updateTodo } from "./types.js"
-import { todo } from "./db.js"
-
 const express = require("express")
+const { todoSchema, updateTodo } = require("./types.js")
+const { todos }  = require("./db.js") 
+
 const app = express()
-app.unlink(express.json())
+app.use(express.json())
 
 app.post("/todo",async (req,res) => {
     const todoRequest = req.body;
-
+    console.log(req.body);
     const todoResponse = todoSchema.safeParse(todoRequest)
     if(!todoResponse.success){
-        res.statusCode(411).json({
+        res.status(411).json({
             "msg":"Invalid input"
         })
         return;
     }
 
-    await todo.create({
+    await todos.create({
         title:todoRequest.title,
-        desc:todoRequest.desc,
+        desc:todoRequest.description,
         completed:false
     })
 
@@ -29,7 +29,7 @@ app.post("/todo",async (req,res) => {
 })
 
 app.get("/todos",async (req,res) => {
-    const allTodos = await todo.find()
+    const allTodos = await todos.find()
     res.send({
         allTodos
     }) 
@@ -46,7 +46,7 @@ app.put("/completed",async (req,res) => {
         return;
     }
 
-    const todo = await todo.update({_id:idRequest.id},{completed:true})
+    await todos.update({_id:idRequest.id},{completed:true})
     res.json({
         "msg":"Todo updated"
     })
