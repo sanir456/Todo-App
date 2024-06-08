@@ -40,7 +40,7 @@ app.get("/todos",async (req,res) => {
 app.put("/completed",async (req,res) => {
     const idRequest = req.body
     const updateTodoResponse = updateTodo.safeParse(idRequest)
-
+    console.log(idRequest);
     if(!updateTodoResponse.success) {
         res.status(411).json({
             "msg":"Invalid input"
@@ -48,7 +48,7 @@ app.put("/completed",async (req,res) => {
         return;
     }
 
-    await todos.update({_id:idRequest.id},{completed:true})
+    await todos.updateOne({_id:idRequest.id},{completed:true})
     res.json({
         "msg":"Todo updated"
     })

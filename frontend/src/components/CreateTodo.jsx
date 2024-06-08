@@ -15,7 +15,6 @@ import { useState } from "react"
 //     alert(json.msg)
 
 // }
-
 export function CreateTodo({setTodos}) {
     const [title,setTitle] = useState("")
     const [desc,setDesc] = useState("")
@@ -36,6 +35,7 @@ export function CreateTodo({setTodos}) {
                 })
             })
             const json = await res.json()
+            
             alert(json.msg)
         }}>Add a todo</button>
         <button style={{padding:10, margin:10}} onClick={async () => {
