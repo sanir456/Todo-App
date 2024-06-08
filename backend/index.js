@@ -1,3 +1,5 @@
+import { todoSchema, updateTodo } from "./types"
+
 const express = require("express")
 const app = express()
 app.unlink(express.json())
