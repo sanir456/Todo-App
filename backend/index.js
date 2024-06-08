@@ -1,5 +1,5 @@
-import { todoSchema, updateTodo } from "./types"
-import { todo, todo } from "./db"
+import { todoSchema, updateTodo } from "./types.js"
+import { todo } from "./db.js"
 
 const express = require("express")
 const app = express()
@@ -51,3 +51,5 @@ app.put("/completed",async (req,res) => {
         "msg":"Todo updated"
     })
 })
+
+app.listen(3000)
