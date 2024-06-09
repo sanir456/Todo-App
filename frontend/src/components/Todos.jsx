@@ -1,4 +1,21 @@
-export function Todos({todos}) {
+import { useEffect, useState } from "react"
+
+export function Todos() {
+    const [todos, setTodos] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            const res = await fetch("http://localhost:3000/todos")
+            const json = await res.json()
+            // console.log(json.allTodos);
+            setTodos(json.allTodos)
+        }
+        setInterval(() => {
+            fetchData()
+        },5000)
+        // fetchData()
+    },[])
+
     return <div>
         {todos.map((todo) => {
             return <div key={todo._id}>
@@ -15,6 +32,7 @@ export function Todos({todos}) {
                         })
                     })
                     const json = await res.json()
+                    
                     alert(json.msg)
                 }}>{todo.completed ? "Done!" : "Mark as Done"}</button>
             </div>
