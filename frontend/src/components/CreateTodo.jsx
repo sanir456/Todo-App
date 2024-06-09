@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 // async function postTodo(title,desc){    
 //     const res = await fetch("http://localhost:3000/todo",{
@@ -19,11 +19,19 @@ export function CreateTodo({setTodos}) {
     const [title,setTitle] = useState("")
     const [desc,setDesc] = useState("")
 
+    useEffect(() => {
+        async function fetchData() {
+            const res = await fetch("http://localhost:3000/todos")
+            const json = await res.json()
+            console.log(json.allTodos);
+            setTodos(json.allTodos)
+        }
+        fetchData()
+    },[])
     return <div>
         <input style={{padding:10, margin:10}} type="text" placeholder="title" onChange={(e) => {setTitle(e.target.value)}}/><br />
         <input style={{padding:10, margin:10}} type="text" placeholder="description" onChange={(e) => {setDesc(e.target.value)}}/><br />
         <button style={{padding:10, margin:10}} onClick={async () => {
-
             const res = await fetch("http://localhost:3000/todo",{
                 method:"POST",
                 headers:{
@@ -38,11 +46,5 @@ export function CreateTodo({setTodos}) {
             
             alert(json.msg)
         }}>Add a todo</button>
-        <button style={{padding:10, margin:10}} onClick={async () => {
-            const res = await fetch("http://localhost:3000/todos")
-            const json = await res.json()
-            console.log(json.allTodos);
-            setTodos(json.allTodos)
-        }}>Get All todos</button>
     </div>
 }
