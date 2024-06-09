@@ -26,7 +26,10 @@ export function CreateTodo({setTodos}) {
             console.log(json.allTodos);
             setTodos(json.allTodos)
         }
-        fetchData()
+        setInterval(() => {
+            fetchData()
+        },5000)
+        // fetchData()
     },[])
     return <div>
         <input style={{padding:10, margin:10}} type="text" placeholder="title" onChange={(e) => {setTitle(e.target.value)}}/><br />
