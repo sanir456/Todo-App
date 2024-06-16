@@ -3,7 +3,15 @@ import Todos from "../components/Todos"
 
 export const atomTodos = atom({
     key:"atomTodos",
-    default: []
+    default: selector({
+        key:"atomTodos/Default",
+        get: async () => {
+            const res = await fetch("http://localhost:3000/todos")
+            const json = await res.json()
+            // console.log(json.allTodos);
+            return json.allTodos
+        }
+    })
 })
 
 export const atomFilter = atom({

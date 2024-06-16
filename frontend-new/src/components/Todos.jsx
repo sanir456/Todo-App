@@ -5,19 +5,7 @@ import { useRecoilState, useRecoilValue } from "recoil"
 export default function Todos() {
     const [todos, setTodos] = useRecoilState(atomTodos);
     const filterTodos = useRecoilValue(todosSelector)
-
-    // console.log(filterTodos);
-    useEffect(() => {
-        async function fetchData() {
-            const res = await fetch("http://localhost:3000/todos")
-            const json = await res.json()
-            setTodos(json.allTodos)
-        }
-        setInterval(() => {
-            fetchData()
-        },5000)
-    },[])
-    
+  
     return <div>
         {filterTodos.map((todo) => {
             return <div key={todo._id}>
