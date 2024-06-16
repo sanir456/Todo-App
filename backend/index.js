@@ -37,6 +37,14 @@ app.get("/todos",async (req,res) => {
     }) 
 })
 
+app.get("/todo", async (req,res) => {
+    const id = req.query.id
+    const todo =  await todos.find({_id:id})
+    res.send({
+        todo:todo[0]
+    })
+})
+
 app.put("/completed",async (req,res) => {
     const idRequest = req.body
     const updateTodoResponse = updateTodo.safeParse(idRequest)

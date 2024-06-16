@@ -1,4 +1,4 @@
-import {atom, selector, useRecoilValue} from "recoil"
+import {atom, atomFamily, selector, selectorFamily} from "recoil"
 import Todos from "../components/Todos"
 
 export const atomTodos = atom({
@@ -10,6 +10,18 @@ export const atomTodos = atom({
             const json = await res.json()
             // console.log(json.allTodos);
             return json.allTodos
+        }
+    })
+})
+
+export const todosAtomFamily = atomFamily({
+    key:"todosAtomFamily",
+    default: selectorFamily({
+        key:"atomTodos/Default",
+        get: (id) => async ({get}) => {
+            const res = await fetch(`http://localhost:3000/todo?id=${id}`)
+            const json = await res.json()
+            return json.todo     
         }
     })
 })
